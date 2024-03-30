@@ -1,0 +1,34 @@
+.main{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.profile{
+    align-items: center;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-around;
+    color: skyblue;
+    font-weight: bold;
+    margin-top: 10px;
+}
+button{
+    margin-top: 10px;
+}
+.bothButton{
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+.photo{
+    /* background-image: url('assets/image'); */
+    background-size: cover;
+    width: 213px;
+    height: 200px;
+    background-color: brown;
+    color: antiquewhite;
+}
+img{
+    width: 213px;
+    height: 200px;
+}

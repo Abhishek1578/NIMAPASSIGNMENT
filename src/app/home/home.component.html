@@ -1,0 +1,37 @@
+<div id="form" name="dialogform">
+    <div class="row1">I am looking for...</div>
+    <div class="input-group mb-3">
+        <div><input type="text" placeholder="Enter job Descriptiong" class="form-control" aria-label="Dollar amount (with dot and two decimal places)"></div>
+        <div><button type="submit" class="btn btn-info">Search</button></div>
+    </div>
+    <div class="parentcheckbox">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Full time
+            </label>
+        </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Part Time/Casual/Freelancer
+            </label>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Text input with dropdown button">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>
+          </div>
+    <div class="buttonbtn">
+        <button type="submit" (click)="openDialog()"  class=" btn btn-info" >Register</button>
+    </div>
+
+  </div>
+<app-footer></app-footer> 

@@ -1,0 +1,24 @@
+<div >
+    <div class="profile">
+        Profile
+    </div>
+<div class="main" *ngIf="result"  >
+    <div >
+        <div class="photo">
+            <img [src]="result.avatar" alt="">
+        </div>
+        <div class="bothButton">
+            <div><button type="submit" class="btn btn-warning"  (click)="getUserById(result.id)">Edit Photo</button></div>
+            <div><button type="submit" class="btn btn-warning" (click)="getUserById(result.id)" >Edit Profile</button></div>
+        </div>
+    </div>
+    <div>I'm {{result.firstname|json}} and Im above {{result.age |json}} years and <br>
+        you can send your emails to <br>
+       <span style="color: skyblue;"> {{result.email|json}}</span>. I live in the state of <br>
+        {{result.state |json}}. I like to play {{result.tags |json}}.And please send me {{result.subscribeNewsletter |json}}. <br>
+         Please reach out to me on my {{result.phonenumber |json}}.
+         <br>
+         <button type="button" class="btn btn-success">I Agress</button>
+    </div>
+</div>
+<app-footer></app-footer>

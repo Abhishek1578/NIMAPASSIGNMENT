@@ -1,0 +1,12 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.border-top-on-hover:hover {
+    border-top: 3px solid white
+  }
+ .navbar-text{
+    background-color: skyblue;
+    padding-left: 5px;
+    padding-right: 5px;
+ }

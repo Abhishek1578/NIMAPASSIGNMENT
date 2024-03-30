@@ -1,0 +1,10 @@
+[
+        {
+          "country": "USA",
+          "states": ["New York", "California", "Texas"]
+        },
+        {
+          "country": "Canada",
+          "states": ["Ontario", "Quebec", "British Columbia"]
+        }
+]

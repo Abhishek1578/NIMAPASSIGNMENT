@@ -1,0 +1,51 @@
+/* .user-register-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-register-form input,
+.user-register-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.user-register-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.user-register-form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-register-form button:hover {
+  background-color: #45a049;
+} */
+#img1{
+  height: 170px;
+  object-fit: fill;
+  
+}
+.maindiv{
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+.w-25 {
+  width: 51% !important;
+}
+.w-25[_ngcontent-nnt-c20] {
+  width: 30% !important;
+}

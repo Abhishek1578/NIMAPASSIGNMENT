@@ -1,0 +1,192 @@
+<div class="container mt-5 px-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 ">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)" class="user-register-form p-50">
+            <div>
+              <img id="img1" class="border border-primary btn-sm" class="w-25 p-3" [src]="urlink"> 
+              <input type="file"  (change)="onSelectFiles($event)"  accept="image/*" formControlName="avatar"  required>
+              <!-- <button (click)="onUpload()">Upload</button> -->
+              <div *ngIf="registerForm.get('avatar')?.invalid && (registerForm.get('avatar')?.dirty || registerForm.get('avatar')?.touched)">
+                <div *ngIf="registerForm.get('avatar')?.errors?.['required']" style="color: red;">
+                  Image Required!!...
+                </div>
+            </div>
+            </div>
+            
+            
+            <div class="mb-3 ">
+              <label for="firstName"  class="form-label">First Name</label>
+              <input type="text"  class="form-control"  formControlName="firstname" required>
+              <div *ngIf="registerForm.get('firstname')?.invalid && (registerForm.get('firstname')?.dirty || registerForm.get('firstname')?.touched)">
+                <div *ngIf="registerForm.get('firstname')?.errors?.['required']" style="color: red;">
+                  First Name is required.
+                </div>
+                <div *ngIf="registerForm.get('firstname')?.errors?.['pattern']" style="color: red;">
+                  First Name must contain only letters.
+                </div>
+                <div *ngIf="registerForm.get('firstname')?.errors?.['maxlength']" style="color: red;">
+                  First Name must have less than 20 characters.
+                </div>
+              </div>
+          
+            </div>
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Last Name</label>
+              <input type="text" class="form-control"  formControlName="lastname" required>
+              <div *ngIf="registerForm.get('lastname')?.invalid && (registerForm.get('lastname')?.dirty || registerForm.get('lastname')?.touched)">
+                <div *ngIf="registerForm.get('lastname')?.errors?.['required']" style="color: red;">
+                  Last Name is required.
+                </div>
+                <div *ngIf="registerForm.get('lastname')?.errors?.['pattern']" style="color: red;">
+                  Last Name must contain only letters.
+                </div>
+                <div *ngIf="registerForm.get('lastname')?.errors?.['maxlength']" style="color: red;">
+                  Last Name must have less than 20 characters.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Name</label>
+              <input type="text" class="form-control"  formControlName="email"  required>
+              <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                <div *ngIf="registerForm.get('email')?.errors?.['required']" style="color: red;">
+                  Email is required.
+                </div>
+                <div *ngIf="registerForm.get('email')?.errors?.['email']" style="color: red;">
+                  Email must contain email format only ex-abc@gmail.com.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="phonenumber" class="form-label">Phone Number</label>
+              <input type="text" class="form-control"  formControlName="phonenumber"  required>
+              <div *ngIf="registerForm.get('phonenumber')?.invalid && (registerForm.get('phonenumber')?.dirty || registerForm.get('phonenumber')?.touched)">
+                <div *ngIf="registerForm.get('phonenumber')?.errors?.['required']" style="color: red;">
+                  Phone number is required.
+                </div>
+                <div *ngIf="registerForm.get('phonenumber')?.errors?.['pattern']" style="color: red;">
+                  Phone Number must have  10 number.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Age </label>
+              <!-- <input type="text" class="form-control"  -->
+              <mat-slider discrete="true" thumbLabel [displayWith]="formatLabel"tickInterval="1" min="0" max="100" required >
+                <input formControlName="age" matSliderThumb>
+              </mat-slider>
+              <div *ngIf="registerForm.get('age')?.invalid && (registerForm.get('age')?.dirty || registerForm.get('age')?.touched)">
+                <div *ngIf="registerForm.get('age')?.errors?.['required']" style="color: red;">
+                  Age is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <!-- <input type="text" class="form-control"   formControlName="country" required> -->
+                <select class="form-select" id="country" aria-label="default select example" formControlName="country" (change)="onCountryChange($event)" required>
+                <option value="">Select Country</option>
+                <option *ngFor="let country of countries" value="{{country.id}}"> {{country.name}}</option>
+                </select>
+                <div *ngIf="registerForm.get('country')?.invalid && (registerForm.get('country')?.dirty || registerForm.get('country')?.touched)">
+                  <div *ngIf="registerForm.get('country')?.errors?.['required']" style="color: red;">
+                    Country is required.
+                  </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" aria-label="default select example" formControlName="state" required>
+                <option value="">Select State</option>
+                <option *ngFor="let state of states" value="{{state.id}}" >{{state.name}}</option>
+                </select>
+                <div *ngIf="registerForm.get('state')?.invalid && (registerForm.get('state')?.dirty || registerForm.get('state')?.touched)">
+                  <div *ngIf="registerForm.get('state')?.errors?.['required']" style="color: red;">
+                    State is required.
+                  </div>
+                </div>
+            </div>
+            <div class="mb-3">
+              <mat-form-field>
+                <mat-label>Select Address</mat-label>
+                <mat-select [(value)]="selectedField">
+                <mat-option value="address1">Destination address</mat-option>
+                <mat-option value="address2">Office address</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="selectedField === 'address1'">
+                <mat-form-field>
+                  <input matInput formControlName="add1" placeholder="Enter Destination Address" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput formControlName="add2" placeholder="Enter Destination Address" required>
+                </mat-form-field>
+              </div>
+              
+              <div *ngIf="selectedField === 'address2'">
+                <mat-form-field>
+                  <input matInput formControlName="add1" placeholder="Enter Office Address" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput formControlName="add2" placeholder="Enter Office Address" required>
+                </mat-form-field>
+              </div>
+              <div *ngIf="registerForm.get('add1')?.invalid && (registerForm.get('add1')?.dirty || registerForm.get('add1')?.touched)">
+                <div *ngIf="registerForm.get('add1')?.errors?.['required']" style="color: red;">
+                  Addres is required.
+                </div>
+              </div>
+              <div *ngIf="registerForm.get('add2')?.invalid && (registerForm.get('add2')?.dirty || registerForm.get('add2')?.touched)">
+                <div *ngIf="registerForm.get('add2')?.errors?.['required']" style="color: red;">
+                  Address is required.
+                </div>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <mat-form-field class="example-chip-list" appearance="fill">
+                <mat-label>Favorite Fruits</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Enter fruits">
+                  <mat-chip-row *ngFor="let fruit of fruits"
+                                (removed)="remove(fruit)"
+                                [editable]="true"
+                                (edited)="edit(fruit, $event)"
+                                [aria-description]="'press enter to edit ' + fruit.name">
+                    {{fruit.name}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + fruit.name">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                  <input placeholder="New Tags please..."
+                        [matChipInputFor]="chipGrid"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)" required formControlName="tags"/>
+                </mat-chip-grid>
+              </mat-form-field>
+              <div *ngIf="registerForm.get('tags')?.invalid && (registerForm.get('tags')?.dirty || registerForm.get('tags')?.touched)">
+                <div *ngIf="registerForm.get('tags')?.errors?.['required']" style="color: red;">
+                  Tags is required.
+                </div>
+              </div>
+            </div>
+            
+            <!-- Repeat the above pattern for other form fields -->
+            <div class="mb-3 form-check">
+              <input type="checkbox" formControlName="subscribeNewsletter" class="form-check-input" required>
+              <label class="form-check-label" for="subscribeNewsletter">Subscribe for newsletter</label>
+              <div *ngIf="registerForm.get('subscribeNewsletter')?.invalid && (registerForm.get('subscribeNewsletter')?.dirty || registerForm.get('subscribeNewsletter')?.touched)">
+                <div *ngIf="registerForm.get('subscribeNewsletter')?.errors?.['required']" style="color: red;">
+                  subscribeNewsletter is required.
+                </div>
+              </div>
+            </div>
+        <div class="maindiv">
+        <button type="submit"  class="btn btn-primary" >Register</button>
+        <div><button type="button" (click)="cancel()" (click)="onUpload()" class="btn btn-primary">No Thanks</button></div>
+        </div> 
+      </form>
+    </div>
+  </div>
+</div>
