@@ -82,53 +82,53 @@
               </div>
             </div>
 
-            <div class="mb-3">
-              <!-- <input type="text" class="form-control"   formControlName="country" required> -->
-                <select class="form-select" id="country" aria-label="default select example" formControlName="country" (change)="onCountryChange($event)" required>
-                <option value="">Select Country</option>
-                <option *ngFor="let country of countries" value="{{country.id}}"> {{country.name}}</option>
-                </select>
-                <div *ngIf="registerForm.get('country')?.invalid && (registerForm.get('country')?.dirty || registerForm.get('country')?.touched)">
-                  <div *ngIf="registerForm.get('country')?.errors?.['required']" style="color: red;">
-                    Country is required.
-                  </div>
-                </div>
-            </div>
 
-            <div class="mb-3">
-                <select class="form-select" aria-label="default select example" formControlName="state" required>
-                <option value="">Select State</option>
-                <option *ngFor="let state of states" value="{{state.id}}" >{{state.name}}</option>
-                </select>
-                <div *ngIf="registerForm.get('state')?.invalid && (registerForm.get('state')?.dirty || registerForm.get('state')?.touched)">
-                  <div *ngIf="registerForm.get('state')?.errors?.['required']" style="color: red;">
-                    State is required.
-                  </div>
-                </div>
+            <div>
+              <!-- <label for="country">Country:</label> -->
+              <select formControlName="country" (change)="onCountryChange()" class="form-control">
+                <option value="">Select Country</option>
+                <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+              </select>
+              <div *ngIf="country?.invalid && (country?.dirty || country?.touched)">
+                <div *ngIf="country?.errors" style="color: red;">Country is required</div>
+              </div>
             </div>
+            <div>
+              <br>
+              <!-- <label for="state">State:</label> -->
+              <select formControlName="state" class="form-control">
+                <option value="">Select State</option>
+                <option *ngFor="let state of states[country?.value]" [value]="state">{{ state }}</option>
+              </select>
+              <div *ngIf="state?.invalid && (state?.dirty || state?.touched)">
+                <div *ngIf="state?.errors" style="color: red;">State is required</div>
+              </div>
+            </div>
+            <br>
+            
             <div class="mb-3">
               <mat-form-field>
                 <mat-label>Select Address</mat-label>
                 <mat-select [(value)]="selectedField">
-                <mat-option value="address1">Destination address</mat-option>
-                <mat-option value="address2">Office address</mat-option>
+                <mat-option value="address1">Home address</mat-option>
+                <mat-option value="address2">Company address</mat-option>
                 </mat-select>
               </mat-form-field>
               <div *ngIf="selectedField === 'address1'">
                 <mat-form-field>
-                  <input matInput formControlName="add1" placeholder="Enter Destination Address" required>
+                  <input matInput formControlName="add1" placeholder="Enter Home Address" required>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput formControlName="add2" placeholder="Enter Destination Address" required>
+                  <input matInput formControlName="add2" placeholder="Enter Home Address" required>
                 </mat-form-field>
               </div>
               
               <div *ngIf="selectedField === 'address2'">
                 <mat-form-field>
-                  <input matInput formControlName="add1" placeholder="Enter Office Address" required>
+                  <input matInput formControlName="add1" placeholder="Enter Company Address" required>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput formControlName="add2" placeholder="Enter Office Address" required>
+                  <input matInput formControlName="add2" placeholder="Enter Company Address" required>
                 </mat-form-field>
               </div>
               <div *ngIf="registerForm.get('add1')?.invalid && (registerForm.get('add1')?.dirty || registerForm.get('add1')?.touched)">
