@@ -1,16 +1,12 @@
 <div class="container mt-5 px-5">
   <div class="row justify-content-center">
     <div class="col-md-6 ">
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)" class="user-register-form p-50">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="user-register-form p-50">
             <div>
-              <img id="img1" class="border border-primary btn-sm" class="w-25 p-3" [src]="urlink"> 
-              <input type="file"  (change)="onSelectFiles($event)"  accept="image/*" formControlName="avatar"  required>
-              <!-- <button (click)="onUpload()">Upload</button> -->
-              <div *ngIf="registerForm.get('avatar')?.invalid && (registerForm.get('avatar')?.dirty || registerForm.get('avatar')?.touched)">
-                <div *ngIf="registerForm.get('avatar')?.errors?.['required']" style="color: red;">
-                  Image Required!!...
-                </div>
-            </div>
+              <img  id="img1" class="border border-primary btn-sm" class="w-25 p-3" [src]="urlink"> 
+              <input type="file" formControlName="avatar" (change)="onSelectFiles($event)">
+                  <p *ngIf="avatar?.invalid && avatar?.errors?.['required']">Please select a file.</p>
+                    <p *ngIf="invalidDimensions" style="color: red;">Image dimensions must be 310x325.</p>
             </div>
             
             
@@ -183,8 +179,8 @@
               </div>
             </div>
         <div class="maindiv">
-        <button type="submit"  class="btn btn-primary" >Register</button>
-        <div><button type="button" (click)="cancel()" (click)="onUpload()" class="btn btn-primary">No Thanks</button></div>
+        <button type="submit"  class="btn btn-primary" [disabled]="!registerForm.valid || invalidDimensions" >Register</button>
+        <div><button type="button" (click)="cancel()"  class="btn btn-primary">No Thanks</button></div>
         </div> 
       </form>
     </div>

@@ -29,9 +29,9 @@ export class UserRegisterComponent implements OnInit  {
     'Australia': ["New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia","Tasmania", "Australian Capital Territory", "Northern Territory"],
   };
   isEdit!:boolean;
-  // states!: any[];
-  // countries !:any[];
 
+
+  errorMessage:any;
   selectedFile:File | null=null;
   selectedField!:string;
   countryCode!:any[];
@@ -94,7 +94,8 @@ export class UserRegisterComponent implements OnInit  {
    ngOnInit(): void {
         //this is validation of register form 
         this.registerForm=this.formBuilder.group({
-        avatar:['',[Validators.required]],
+        avatar:['',[Validators.required,]],
+        dimensionsValid: [false],
         firstname: ['', [Validators.required,Validators.maxLength(20), Validators.pattern(/^[a-zA-Z]+$/)]],
         lastname: ['', [Validators.required,Validators.maxLength(20), Validators.pattern(/^[a-zA-Z]+$/)]],
         email: ['', [Validators.required, Validators.email]],
@@ -130,11 +131,35 @@ export class UserRegisterComponent implements OnInit  {
 
   //this is event listener on register button
 
-  onSubmit(formData:any){
-    if(this.registerForm.valid)
+  onSubmit(){
+    if(this.registerForm.valid && this.dimensionsValid?.value )
     { 
-      this.dataSharing.setRegisterData(formData).subscribe((res)=>{
-        debugger
+      const firstname=this.registerForm.get('firstname')?.value;
+      const lastname=this.registerForm.get('lastname')?.value;
+      const email=this.registerForm.get('email')?.value;
+      const phonenumber=this.registerForm.get('phonenumber')?.value;
+      const age=this.registerForm.get('age')?.value;
+      const country=this.registerForm.get('country')?.value;
+      const state=this.registerForm.get('state')?.value;
+      const add1=this.registerForm.get('add1')?.value;
+      const add2=this.registerForm.get('add2')?.value;
+      const tags=this.registerForm.get('tags')?.value;
+      const subscribeNewsletter=this.registerForm.get('subscribeNewsletter')?.value;
+      const getData={
+        firstname:firstname,
+        lastname:lastname,
+        email:email,
+        phonenumber:phonenumber,
+        age:age,
+        country:country,
+        state:state,
+        add1:add1,
+        add2:add2,
+        tags:tags,
+        subscribeNewsletter:subscribeNewsletter,
+        avatar:this.base64String
+      }
+      this.dataSharing.setRegisterData(getData).subscribe((res)=>{
         console.log(res);
         this.users=res;
         this.snackBar.open("Registration Successfull...!",'ok',{
@@ -166,48 +191,32 @@ export class UserRegisterComponent implements OnInit  {
   //this is image access in assets file in 
   urlink:string="assets/th.jpg/";
   base64Output!:String;
-  onSelectFiles(event:any){
-  if(event.target.files && event.target.files.length>0){
-    const file=event.target.files[0];
-    this.converToBase64(file);
 
-  }
+
+  get avatar() {
+    return this.registerForm.get('avatar');
   }
 
-  avatar!:string;
-  converToBase64(file:File){
-    const reader=new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload=(event:any)=>{
-      this.urlink=event?.target.result
-      this.registerForm.patchValue({
-        avatar:reader.result as string,
-      });
-    };
-
+  get dimensionsValid() {
+    return this.registerForm.get('dimensionsValid');
   }
 
+  invalidDimensions = false;
+  base64String!: string;
 
-  isUpdate(): boolean{
-   return this.dataSharing.getIsEditingProfile();
-  }
-
-  onUpload(){
-
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64Data = reader.result?.toString().split(',')[1];
-        this.dataSharing.setRegisterData(base64Data!).subscribe(
-          response => {
-            console.log('Image uploaded successfully:', response);
-          },
-          error => {
-            console.error('Error uploading image:', error);
-          }
-        );
+  onSelectFiles(event:any): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.base64String = reader.result as string;
+      const img = new Image();
+      img.src = this.base64String;
+      img.onload = () => {
+        this.dimensionsValid?.setValue(img.width === 310 && img.height === 325);
+        this.invalidDimensions = !this.dimensionsValid?.value;
       };
-      reader.readAsDataURL(this.selectedFile);
-    }
+    };
+    reader.readAsDataURL(file);
   }
+
 }
